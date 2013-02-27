@@ -1,0 +1,3 @@
+#忽略bin目录和gen目录
+/bin
+/gen

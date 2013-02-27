@@ -1,0 +1,35 @@
+<resources>
+
+    <string name="app_name">ListViewTemplate</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string-array name="datasource">
+        <item>data1</item>
+        <item>data2</item>
+        <item>data3</item>
+        <item>data4</item>
+        <item>data5</item>
+        <item>data6</item>
+        <item>data7</item>
+        <item>data8</item>
+        <item>data9</item>
+        <item>data10</item>
+        <item>data11</item>
+        <item>data12</item>
+        <item>data13</item>
+        <item>data14</item>
+        <item>data15</item>
+        <item>data16</item>
+        <item>data17</item>
+        <item>data18</item>
+        <item>data19</item>
+        <item>data20</item>
+        <item>data21</item>
+        <item>data22</item>
+        <item>data23</item>
+        <item>data24</item>
+    </string-array>
+
+</resources>
