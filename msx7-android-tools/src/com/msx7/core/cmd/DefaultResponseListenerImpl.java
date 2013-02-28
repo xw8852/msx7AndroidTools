@@ -8,6 +8,8 @@
  */
 package com.msx7.core.cmd;
 
+import com.msx7.core.cmd.model.Response;
+
 import android.os.Handler;
 
 /**

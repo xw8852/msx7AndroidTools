@@ -16,6 +16,9 @@ import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.conn.ConnectTimeoutException;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import com.msx7.core.cmd.model.Response;
+import com.msx7.core.cmd.observer.ObserverInfo;
+
 import android.util.Log;
 
 /**

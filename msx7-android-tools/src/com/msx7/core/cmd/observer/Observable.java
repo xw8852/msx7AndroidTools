@@ -6,7 +6,7 @@
  * @date 2012-7-24 涓嬪崍3:07:22 
  * @version V1.0   
  */
-package com.msx7.core.cmd;
+package com.msx7.core.cmd.observer;
 
 import java.util.ArrayList;
 import java.util.List;

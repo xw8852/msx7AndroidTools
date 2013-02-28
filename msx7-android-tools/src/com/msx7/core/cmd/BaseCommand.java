@@ -8,6 +8,11 @@
  */
 package com.msx7.core.cmd;
 
+import com.msx7.core.cmd.model.Request;
+import com.msx7.core.cmd.model.Response;
+import com.msx7.core.cmd.observer.Observable;
+import com.msx7.core.cmd.observer.Observer;
+
 
 /**
  * 
