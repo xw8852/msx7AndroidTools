@@ -8,7 +8,7 @@
  */
 package com.msx7.core.cmd;
 
-import com.msx7.core.cmd.model.Response;
+import com.msx7.core.command.model.Response;
 
 /**
  * 
