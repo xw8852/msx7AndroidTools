@@ -1,12 +1,11 @@
 package com.msx7.core;
 
 import android.app.Application;
+import android.os.Handler;
 
 public class Controller extends Application {
-	public static final String MAX_PROCESS = "max_process";
 	private static Controller instance;
-	protected int max_progress = 3;
-
+	private Handler mHandler;
 	@Override
 	public void onCreate() {
 		super.onCreate();
@@ -17,10 +16,8 @@ public class Controller extends Application {
 		return instance;
 	}
 
-	
-
-	public void setMaxProcess(int max) {
-		max_progress = max;
+	public Handler getHandler(){
+		if(mHandler==null) mHandler=new Handler();
+		return mHandler;
 	}
-
 }

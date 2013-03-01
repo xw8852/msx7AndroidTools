@@ -11,16 +11,20 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
+import android.util.Log;
+
 import com.msx7.core.command.AbstractHttpCommand;
 
 public class HttpJsonPostCommand extends AbstractHttpCommand {
 
-	protected HttpJsonPostCommand() {
+	public HttpJsonPostCommand() {
+		super();
 	}
 
 	protected void onBeforeExecute(HttpRequestBase request) {
 		try {
 			HttpPost post = (HttpPost) request;
+			Log.d(HttpJsonPostCommand.class.getSimpleName(), "PARAMS:"+getRequest().Params.toParams());
 			StringEntity entity = new StringEntity(
 					getRequest().Params.toParams(), HTTP.UTF_8);
 			entity.setContentType("application/json");
@@ -34,7 +38,7 @@ public class HttpJsonPostCommand extends AbstractHttpCommand {
 	protected Object getSuccessResponse(HttpResponse response)  {
 		String result = null;
 		try {
-			result= EntityUtils.toString(response.getEntity());
+			result= EntityUtils.toString(response.getEntity(),HTTP.UTF_8);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

@@ -34,13 +34,14 @@ import com.msx7.core.command.model.Response;
  * 3.3. Validate the response (200)
  * 3.4. If valid, {@link #getSuccessResponse(HttpResponse)} or else
  * {@link #getErrorResponse(Exception)} or
- * {@link #getErrorResponse(HttpResponse)} 3.5. Set the response
+ * {@link #getErrorResponse(HttpResponse)} 
+ * 3.5. Set the response
  * 4. onAfterExecute:
  * Nothing special to be done. And also, don't override
  * {@link #notifyListener(boolean)} - let notification happen
  * </pre>
  * 
- * @author msx7
+ * @author  Gaurav Vaish
  * 
  */
 public abstract class AbstractHttpCommand extends AbstractCommand {
