@@ -11,6 +11,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.CoreConnectionPNames;
 import org.apache.http.protocol.HTTP;
 
 import com.msx7.core.command.model.Response;
@@ -72,6 +73,7 @@ public abstract class AbstractHttpCommand extends AbstractCommand {
 		Object responseData = null;
 		Response response = new Response();
 		client.getParams().setIntParameter("http.connection.timeout", 15000);
+		client.getParams().setIntParameter(CoreConnectionPNames.SO_TIMEOUT, 15000);
 		try {
 			HttpResponse rawResponse = client.execute(request);
 

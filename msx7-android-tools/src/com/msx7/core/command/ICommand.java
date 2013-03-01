@@ -1,6 +1,5 @@
 package com.msx7.core.command;
 
-import com.msx7.core.cmd.IResponseListener;
 import com.msx7.core.command.model.Request;
 import com.msx7.core.command.model.Response;
 

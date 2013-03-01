@@ -8,7 +8,6 @@
  */
 package com.msx7.core.command.model;
 
-import java.util.HashMap;
 
 /**
  * 
@@ -18,8 +17,6 @@ import java.util.HashMap;
  */
 public class Request {
 	public String url;
-	public Object Params;
-	public HashMap<String, Object> params;
-	public int command;
-	public Object tag;
+	public IParams Params;
+	public Object object;
 }
