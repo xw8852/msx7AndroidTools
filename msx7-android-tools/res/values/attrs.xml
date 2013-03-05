@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+        <declare-styleable name="RoudShape">
+        <!-- The orientation for the clip. -->
+        <attr name="clipOrientation">
+            <!-- Clip the drawable horizontally. -->
+            <flag name="horizontal" value="1" />
+            <!-- Clip the drawable vertically. -->
+            <flag name="vertical" value="2" />
+        </attr>
+       
+    </declare-styleable>
+    
+     
+</resources>
