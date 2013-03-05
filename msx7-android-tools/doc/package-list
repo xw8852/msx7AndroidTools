@@ -1,0 +1,5 @@
+com.msx7.core
+com.msx7.core.command
+com.msx7.core.command.impl
+com.msx7.core.command.model
+com.msx7.util
