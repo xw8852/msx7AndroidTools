@@ -1,6 +1,7 @@
 package com.msx7.core.command;
 
 import java.io.InputStream;
+import java.net.SocketTimeoutException;
 import java.net.URI;
 import java.util.HashMap;
 
@@ -10,12 +11,12 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http.conn.ConnectTimeoutException;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.CoreConnectionPNames;
 import org.apache.http.protocol.HTTP;
 
 import com.msx7.core.command.model.Response;
-
 
 /**
  * <pre>
@@ -41,7 +42,7 @@ import com.msx7.core.command.model.Response;
  * {@link #notifyListener(boolean)} - let notification happen
  * </pre>
  * 
- * @author  Gaurav Vaish
+ * @author Gaurav Vaish
  * 
  */
 public abstract class AbstractHttpCommand extends AbstractCommand {
@@ -74,7 +75,8 @@ public abstract class AbstractHttpCommand extends AbstractCommand {
 		Object responseData = null;
 		Response response = new Response();
 		client.getParams().setIntParameter("http.connection.timeout", 15000);
-		client.getParams().setIntParameter(CoreConnectionPNames.SO_TIMEOUT, 15000);
+		client.getParams().setIntParameter(CoreConnectionPNames.SO_TIMEOUT,
+				15000);
 		try {
 			HttpResponse rawResponse = client.execute(request);
 
@@ -88,13 +90,22 @@ public abstract class AbstractHttpCommand extends AbstractCommand {
 				// create appropriate Response-data
 				responseData = getErrorResponse(rawResponse);
 				response.setError(true);
+				response.errorCode = ErrorCode.ERROR_HTTP_STATUS;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			// If something's wrong with the network or otherwise, let the
-			// sub-class create appropriate Response-data
 			responseData = getErrorResponse(e);
 			response.setError(true);
+			if (e instanceof SocketTimeoutException
+					|| e instanceof ConnectTimeoutException) {
+				response.errorCode = ErrorCode.ERROR_TIME_OUT;
+			} else if (e instanceof java.net.ConnectException) {
+				response.errorCode = ErrorCode.ERROR_CONNECT_SERVER;
+			} else if (e instanceof java.io.FileNotFoundException) {
+				response.errorCode = ErrorCode.ERROR_NOT_FOUND_FILE_NET;
+			} else
+				response.errorCode = ErrorCode.ERROR_NET_UNKOWN;
+
 		}
 
 		response.setData(responseData);
@@ -130,12 +141,10 @@ public abstract class AbstractHttpCommand extends AbstractCommand {
 	}
 
 	protected abstract byte[] getBody();
-	
+
 	/**
 	 * 
-	 *添加http中content-type头的值(MIME类型)
-	 * exp:
-	 * 	HTTP.CONTENT_TYPE, "application/json"
+	 * 添加http中content-type头的值(MIME类型) exp: HTTP.CONTENT_TYPE, "application/json"
 	 * 
 	 */
 	protected abstract String getContentType();
@@ -156,18 +165,17 @@ public abstract class AbstractHttpCommand extends AbstractCommand {
 		return uri;
 	}
 
-	
 	/**
-	 * you can add some default headers like cookie, agent etc
-	 * override and call addHeader
+	 * you can add some default headers like cookie, agent etc override and call
+	 * addHeader
 	 */
 	protected void initializeHeaders() {
 		addHeader(HTTP.CONN_CLOSE, "close");
-	
+
 	}
 
 	/**
-	 * use this method to add header for httpRequest 
+	 * use this method to add header for httpRequest
 	 * 
 	 * @param name
 	 * @param value
@@ -175,6 +183,5 @@ public abstract class AbstractHttpCommand extends AbstractCommand {
 	protected final void addHeader(String name, String value) {
 		headers.put(name, value);
 	}
-	
-	
+
 }

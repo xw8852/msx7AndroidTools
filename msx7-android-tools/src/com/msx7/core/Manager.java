@@ -9,6 +9,7 @@ import java.util.concurrent.Executors;
 import com.msx7.core.command.AbstractHttpCommand;
 import com.msx7.core.command.ICommand;
 import com.msx7.core.command.IResponseListener;
+import com.msx7.core.command.impl.HttpGetCommand;
 import com.msx7.core.command.impl.HttpJsonPostCommand;
 import com.msx7.core.command.model.DefaultResponseListenerImpl;
 import com.msx7.core.command.model.Request;
@@ -26,8 +27,14 @@ import com.msx7.core.command.model.Request;
  * 
  */
 public class Manager {
-
-	public static final int CMD_JSON_POST = 0x10001;
+	/**
+	 * 类型为cmdId 此值对应 {@link HttpJsonPostCommand}
+	 */
+	public static final int CMD_JSON_POST = 0x00001;
+	/**
+	 * 类型为cmdId 此值对应 {@link HttpGetCommand}
+	 */
+	public static final int CMD_GET = CMD_JSON_POST << CMD_JSON_POST;
 	private static final Manager instance = new Manager();
 	private HashMap<String, Class<? extends ICommand>> maps = new HashMap<String, Class<? extends ICommand>>();
 	private ExecutorService mPools;
@@ -35,6 +42,7 @@ public class Manager {
 	private Manager() {
 		mPools = Executors.newCachedThreadPool();
 		registerCommand(CMD_JSON_POST, HttpJsonPostCommand.class);
+		registerCommand(CMD_GET, HttpGetCommand.class);
 	}
 
 	public static final Manager getInstance() {
@@ -47,16 +55,53 @@ public class Manager {
 		maps.put(Integer.toString(cmdId), cls);
 	}
 
-	protected void execute(int cmdId, Request request,
-			IResponseListener listener) {
+	/**
+	 * 
+	 * @param request
+	 * @param listener
+	 *            listener will be running in the UI thread
+	 */
+	public void executePoset(Request request, IResponseListener listener) {
+		execute(CMD_JSON_POST, request, listener);
+	}
+
+	/**
+	 * 
+	 * @param cmdId
+	 *            {@link Manager#CMD_JSON_POST}
+	 *            {@link #registerCommand(int, Class)}
+	 * @param request
+	 * @param listener
+	 *            listener will be running in the UI thread
+	 */
+	public void execute(int cmdId, Request request, IResponseListener listener) {
+		execute(cmdId, request, listener, true);
+	}
+
+	/**
+	 * 
+	 * @param cmdId
+	 *            {@link Manager#CMD_JSON_POST}
+	 *            {@link #registerCommand(int, Class)}
+	 * @param request
+	 * @param listener
+	 * @param isUIThread
+	 *            true : the listener will be executed in UI Thread;
+	 */
+	public void execute(int cmdId, Request request, IResponseListener listener,
+			boolean isUIThread) {
+		if (isUIThread) {
+			listener = new DefaultResponseListenerImpl(Controller
+					.getApplication().getHandler(), listener);
+		}
 		Class<? extends ICommand> cmd_class = maps.get(Integer.toString(cmdId));
 		if (cmd_class == null)
-			return ;
+			return;
 		int modifiers = cmd_class.getModifiers();
 		if ((modifiers & Modifier.ABSTRACT) != 0)
-			return ;
+			return;
 		if ((modifiers & Modifier.INTERFACE) != 0)
-			return ;
+			return;
 		try {
 			ICommand cmd = cmd_class.newInstance();
 			cmd.setRequest(request);
@@ -72,24 +117,6 @@ public class Manager {
 		}
 	}
 
-	/**
-	 * 
-	 * @param cmdId
-	 *            {@link #registerCommand(int, Class)}
-	 * @param request
-	 * @param listener
-	 * @param isUIThread
-	 *            true : the listener will be executed in UI Thread;
-	 */
-	public void execute(int cmdId, Request request, IResponseListener listener,
-			boolean isUIThread) {
-		if (isUIThread) {
-			listener = new DefaultResponseListenerImpl(Controller
-					.getApplication().getHandler(), listener);
-		}
-		execute(cmdId, request, listener);
-	}
-
 	private class ThreadCall implements Runnable {
 		ICommand cmd;
 
@@ -103,5 +130,5 @@ public class Manager {
 			cmd.execute();
 		}
 	}
-	
+
 }

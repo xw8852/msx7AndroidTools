@@ -3,11 +3,16 @@
     android:versionCode="1"
     android:versionName="1.0" >
 <uses-permission android:name="android.permission.INTERNET" />
+ <instrumentation
+        android:name="android.test.InstrumentationTestRunner"
+        android:targetPackage="com.guoli.hotel" />
+
     <application
         name=".TestApplication"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" android:name="TestApplication">
+         <uses-library android:name="android.test.runner" />
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main" >

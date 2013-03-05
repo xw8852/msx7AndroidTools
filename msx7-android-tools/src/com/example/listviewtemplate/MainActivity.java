@@ -9,12 +9,8 @@ import android.view.Menu;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.msx7.core.Manager;
 import com.msx7.core.command.IResponseListener;
-import com.msx7.core.command.model.Request;
 import com.msx7.core.command.model.Response;
-import com.msx7.test.GuoliParam;
-import com.msx7.test.LoadBean;
 import com.msx7.widget.PageFooter;
 import com.msx7.widget.PageFooter.Page;
 import com.msx7.widget.PageFooter.PageLoader;
@@ -50,13 +46,10 @@ public class MainActivity extends Activity {
         footer = new PageFooter(listview, pageLoader, page);
 
         listview.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.datasource)));
-        Request request = new Request();
-		request.url = URL_GUOLI;
-		request.Params = new GuoliParam("system_citylist", null);
-		Manager.getInstance().execute(Manager.CMD_JSON_POST, request, listener,
-				true);
     }
 
+ 
+    
     PageLoader pageLoader = new PageLoader() {
 
         @Override
