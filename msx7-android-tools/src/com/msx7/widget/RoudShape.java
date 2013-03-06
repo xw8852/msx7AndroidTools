@@ -14,11 +14,8 @@ import android.graphics.Path;
 import android.graphics.PointF;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
-import android.text.BoringLayout;
 import android.util.AttributeSet;
 import android.util.FloatMath;
-import android.view.Gravity;
-import android.widget.ProgressBar;
 
 import com.example.listviewtemplate.R;
 
@@ -127,7 +124,8 @@ import com.example.listviewtemplate.R;
  */
 public class RoudShape extends Drawable implements Drawable.Callback {
     private ClipState mClipState;
-    private final Rect mTmpRect = new Rect();
+    
+     Callback mCallback;
 
     public static final int HORIZONTAL = 1;
     public static final int VERTICAL = 2;
@@ -150,6 +148,9 @@ public class RoudShape extends Drawable implements Drawable.Callback {
             drawable.setCallback(this);
         }
     }
+
+ 
+
 
     @Override
     public void inflate(Resources r, XmlPullParser parser, AttributeSet attrs) throws XmlPullParserException, IOException {
@@ -186,25 +187,22 @@ public class RoudShape extends Drawable implements Drawable.Callback {
 
     @TargetApi(11)
     public void invalidateDrawable(Drawable who) {
-        final Callback callback = getCallback();
-        if (callback != null) {
-            callback.invalidateDrawable(this);
+        if (mCallback != null) {
+        	mCallback.invalidateDrawable(this);
         }
     }
 
     @TargetApi(11)
     public void scheduleDrawable(Drawable who, Runnable what, long when) {
-        final Callback callback = getCallback();
-        if (callback != null) {
-            callback.scheduleDrawable(this, what, when);
+        if (mCallback != null) {
+        	mCallback.scheduleDrawable(this, what, when);
         }
     }
 
     @TargetApi(11)
     public void unscheduleDrawable(Drawable who, Runnable what) {
-        final Callback callback = getCallback();
-        if (callback != null) {
-            callback.unscheduleDrawable(this, what);
+        if (mCallback != null) {
+        	mCallback.unscheduleDrawable(this, what);
         }
     }
 
@@ -266,12 +264,9 @@ public class RoudShape extends Drawable implements Drawable.Callback {
 
     @Override
     public void draw(Canvas canvas) {
-
         if (mClipState.mDrawable.getLevel() == 0) {
             return;
         }
-
-        final Rect r = mTmpRect;
         final Rect bounds = getBounds();
         int level = getLevel();
         int w = bounds.width();
@@ -285,7 +280,6 @@ public class RoudShape extends Drawable implements Drawable.Callback {
             h -= (h - ih) * (10000 - level) / 10000;
         }
         double angle = (getLevel() * 360.0) / 10000;
-        System.out.println("angle:" + angle+","+getLevel());
         Path path = new Path();
         path.reset();
         path.moveTo(bounds.exactCenterX(), bounds.exactCenterY());
@@ -365,6 +359,9 @@ public class RoudShape extends Drawable implements Drawable.Callback {
                     mDrawable = orig.mDrawable.getConstantState().newDrawable();
                 }
                 mDrawable.setCallback(owner);
+                if(mDrawable instanceof RoudShape){
+                	((RoudShape)mDrawable).mCallback=owner;
+                }
                 mOrientation = orig.mOrientation;
                 mCheckedConstantState = mCanConstantState = true;
             }
