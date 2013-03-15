@@ -24,6 +24,7 @@ public class RegularPolygonView extends TextView {
 	RectF rectF;
 	Path path;
 	Drawable mBgDrawable;
+	public PointF[] mVertexs;
 
 	public RegularPolygonView(Context context, AttributeSet attrs) {
 		this(context, attrs, 0);
@@ -49,7 +50,15 @@ public class RegularPolygonView extends TextView {
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+		System.out.println("onMeasure");
+	}
+	
 
+	@Override
+	protected void onLayout(boolean changed, int left, int top, int right,
+			int bottom) {
+		super.onLayout(changed, left, top, right, bottom);
+		System.out.println("onLayout:"+left+","+top+","+right+","+bottom);
 	}
 
 	@SuppressLint("DrawAllocation")
@@ -61,6 +70,7 @@ public class RegularPolygonView extends TextView {
 		canvas.save();
 		rect = new Rect();
 		getFocusedRect(rect);
+		System.out.println("onDraw:"+rect);
 		Path clip = new Path();
 		Matrix matrix = new Matrix();
 		matrix.preRotate(-30f, rect.centerX(), rect.centerY());
@@ -78,6 +88,10 @@ public class RegularPolygonView extends TextView {
 		super.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 	}
 
+	public PointF[] getVertexs() {
+		return mVertexs;
+	}
+
 	public void initPath() {
 		rect = new Rect();
 		getFocusedRect(rect);
@@ -91,6 +105,7 @@ public class RegularPolygonView extends TextView {
 		// path.moveTo(rectF.left + rectF.width() / 2.0f, rectF.top);
 		PointF pointF = null;
 		int i = 0;
+		mVertexs = new PointF[mBorders];
 		while (i < mBorders + 1) {
 			// PointF pointF = testcal(rectF, i * ave_angle);
 			// path.lineTo(pointF.x, pointF.y);
@@ -102,9 +117,10 @@ public class RegularPolygonView extends TextView {
 			} else
 				path.lineTo(pointF.x, pointF.y);
 			System.out.println(i + ":" + pointF.x + "," + pointF.y);
+			if (i < mBorders)
+				mVertexs[i] = pointF;
 			i++;
 		}
-		path.lineTo(pointF.x, pointF.y);
 		path.close();
 
 	}
