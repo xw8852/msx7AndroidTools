@@ -40,4 +40,29 @@ public final class ErrorCode {
 	 */
 	public static final int ERROR_NET_UNKOWN = ERROR_NOT_FOUND_FILE_NET << ERROR_HTTP_STATUS;
 
+	public static final String getErrorCodeString(int code) {
+		String error = null;
+		switch (code) {
+		case ERROR_HTTP_STATUS:
+			error = "服务器异常";
+			break;
+		case ERROR_NET:
+			error = "没有连接到网络，请检查你的 网络连接";
+			break;
+		case ERROR_TIME_OUT:
+			error = "连接服务器超时";
+			break;
+		case ERROR_CONNECT_SERVER:
+			error = "无法连接到服务器";
+			break;
+		case ERROR_NOT_FOUND_FILE_NET:
+			error = "文件不存在";
+			break;
+		default:
+			error = "未知异常";
+			break;
+		}
+		return error;
+	}
+
 }
