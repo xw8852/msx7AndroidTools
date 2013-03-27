@@ -14,8 +14,8 @@ public class Controller extends Application {
     public static final boolean DEBUG = true;
     public static int WIDTH=0;
     public static int HEIGHT=0;
-    DisplayMetrics metrics;
-    ImageFetcher mFetcher;
+    protected  DisplayMetrics metrics;
+   protected ImageFetcher mFetcher;
     @Override
     public void onCreate() {
         super.onCreate();
