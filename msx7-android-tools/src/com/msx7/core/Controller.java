@@ -15,7 +15,7 @@ public class Controller extends Application {
     public static int WIDTH=0;
     public static int HEIGHT=0;
     protected  DisplayMetrics metrics;
-   protected ImageFetcher mFetcher;
+    protected ImageFetcher mFetcher;
     @Override
     public void onCreate() {
         super.onCreate();
