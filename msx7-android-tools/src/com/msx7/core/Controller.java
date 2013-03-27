@@ -36,6 +36,10 @@ public class Controller extends Application {
         return mHandler;
     }
     
+    public void clearImageCache(){
+        mFetcher.clearCache();
+    }
+    
     public void loadThumbnailImage(String key, ImageView imageView, Bitmap loadingBitmap) {
         mFetcher.loadThumbnailImage(key, imageView, loadingBitmap);
     }
