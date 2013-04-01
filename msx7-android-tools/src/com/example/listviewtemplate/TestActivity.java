@@ -19,13 +19,13 @@ public class TestActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.test);
-		getWindow().getDecorView().invalidate();
-		mPolygonView = (RegularPolygonView) findViewById(R.id.regularPolygonView1);
-		mButton = (Button) findViewById(R.id.button1);
-		mEditText = (EditText) findViewById(R.id.editText1);
-		mButton.setOnClickListener(mClickListener);
-		System.out.println("0-getVertexs:"+mPolygonView.getVertexs());
+//		setContentView(R.layout.test);
+//		getWindow().getDecorView().invalidate();
+//		mPolygonView = (RegularPolygonView) findViewById(R.id.regularPolygonView1);
+//		mButton = (Button) findViewById(R.id.button1);
+//		mEditText = (EditText) findViewById(R.id.editText1);
+//		mButton.setOnClickListener(mClickListener);
+//		System.out.println("0-getVertexs:"+mPolygonView.getVertexs());
 //		RelativeLayout mLayout;
 	}
 	

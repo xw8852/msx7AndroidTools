@@ -419,10 +419,11 @@ public class ImageCache {
     public static File getDiskCacheDir(Context context, String uniqueName) {
         // Check if media is mounted or storage is built-in, if so, try and use external cache dir
         // otherwise use internal cache dir
-        final String cachePath =
-                Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()) ||
-                        !isExternalStorageRemovable() ? getExternalCacheDir(context).getPath() :
-                        context.getCacheDir().getPath();
+        boolean flag =Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()) ||
+                !isExternalStorageRemovable() ;
+        String str1= getExternalCacheDir(context).getPath();
+        String str2= context.getCacheDir().getPath();
+        final String cachePath = flag ?str1 :str2;
 
         return new File(cachePath + File.separator + uniqueName);
     }
@@ -483,9 +484,18 @@ public class ImageCache {
      * @param context The context to use
      * @return The external cache dir
      */
+    @TargetApi(8)
     public static File getExternalCacheDir(Context context) {
-      
-            return context.getExternalCacheDir();
+        File file=null;
+      if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO){
+          file= context.getExternalCacheDir();
+      }
+      // Before Froyo we need to construct the external cache dir ourselves
+      final String cacheDir = "/Android/data/" + context.getPackageName() + "/cache/";
+      if(file==null){
+          file=new File(Environment.getExternalStorageDirectory().getPath() + cacheDir);
+      }
+      return file;
        
     }
 
