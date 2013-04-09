@@ -16,7 +16,6 @@
 
 package com.msx7.image;
 
-import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.ActivityManager;
 import android.content.Context;

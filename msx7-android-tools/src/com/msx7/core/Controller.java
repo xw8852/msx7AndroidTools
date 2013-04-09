@@ -3,27 +3,21 @@ package com.msx7.core;
 import android.app.Application;
 import android.graphics.Bitmap;
 import android.os.Handler;
-import android.util.DisplayMetrics;
 import android.widget.ImageView;
 
-import com.msx7.image.ImageFetcher;
+import com.msx7.image.ImageLoader;
 
 public class Controller extends Application {
     private static Controller instance;
     private Handler mHandler;
     public static final boolean DEBUG = true;
-    public static int WIDTH=0;
-    public static int HEIGHT=0;
-    protected  DisplayMetrics metrics;
-    protected ImageFetcher mFetcher;
+    
+    protected  ImageLoader   mLoader;
     @Override
     public void onCreate() {
         super.onCreate();
         instance = this;
-        metrics =getResources().getDisplayMetrics();
-        WIDTH=metrics.widthPixels;
-        HEIGHT= metrics.heightPixels;
-        mFetcher= new ImageFetcher(this);
+        mLoader=ImageLoader.getInstance();
     }
 
     public static final Controller getApplication() {
@@ -37,30 +31,30 @@ public class Controller extends Application {
     }
     
     public void clearImageCache(){
-        mFetcher.clearCache();
+        mLoader.clearCache();
     }
     
     public void loadThumbnailImage(String key, ImageView imageView, Bitmap loadingBitmap) {
-        mFetcher.loadThumbnailImage(key, imageView, loadingBitmap);
+        mLoader.loadThumbnailImage(key, imageView, loadingBitmap);
     }
 
     public void loadThumbnailImage(String key, ImageView imageView, int resId) {
-         mFetcher.loadThumbnailImage(key, imageView, resId);
+        mLoader.loadThumbnailImage(key, imageView, resId);
     }
 
     public void loadThumbnailImage(String key, ImageView imageView) {
-        mFetcher.loadThumbnailImage(key, imageView);
+        mLoader.loadThumbnailImage(key, imageView);
     }
 
     public void loadImage(String key, ImageView imageView, Bitmap loadingBitmap) {
-        mFetcher.loadImage(key, imageView, loadingBitmap);
+        mLoader.loadImage(key, imageView, loadingBitmap);
     }
 
     public void loadImage(String key, ImageView imageView, int resId) {
-        mFetcher.loadImage(key, imageView, resId);
+        mLoader.loadImage(key, imageView, resId);
     }
 
     public void loadImage(String key, ImageView imageView) {
-        mFetcher.loadImage(key, imageView);
+        mLoader.loadImage(key, imageView);
     }
 }

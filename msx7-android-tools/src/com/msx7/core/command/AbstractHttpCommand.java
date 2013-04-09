@@ -76,9 +76,9 @@ public abstract class AbstractHttpCommand extends AbstractCommand {
 		HttpClient client = new DefaultHttpClient();
 		Object responseData = null;
 		Response response = new Response();
-		client.getParams().setIntParameter("http.connection.timeout", 15000);
+		client.getParams().setIntParameter("http.connection.timeout", 20000);
 		client.getParams().setIntParameter(CoreConnectionPNames.SO_TIMEOUT,
-				15000);
+		        20000);
 		if(!NetUtils.isNetworkWell(Controller.getApplication())){
 			response.errorCode=ErrorCode.ERROR_NET;
 			response.setError(true);
@@ -159,9 +159,9 @@ public abstract class AbstractHttpCommand extends AbstractCommand {
 
 	protected HttpRequestBase getHttpRequest() {
 		if (getBody() != null) {
-			return new HttpPost(uri);
+			return new HttpPost(getURI());
 		} else {
-			return new HttpGet(uri);
+			return new HttpGet(getURI());
 		}
 	}
 
@@ -170,7 +170,7 @@ public abstract class AbstractHttpCommand extends AbstractCommand {
 	}
 
 	public URI getURI() {
-		return uri;
+		return uri==null?URI.create(getRequest().url):uri;
 	}
 
 	/**

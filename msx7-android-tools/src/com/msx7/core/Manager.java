@@ -117,7 +117,7 @@ public class Manager {
 		}
 	}
 
-	private class ThreadCall implements Runnable {
+	public static  class ThreadCall implements Runnable {
 		ICommand cmd;
 
 		public ThreadCall(ICommand cmd) {
