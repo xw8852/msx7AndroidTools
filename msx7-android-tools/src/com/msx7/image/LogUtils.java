@@ -16,9 +16,8 @@
 
 package com.msx7.image;
 
+import static com.msx7.core.Controller.DEBUG;
 import android.util.Log;
-
- import static com.msx7.core.Controller.DEBUG;
 
 /**
  * Helper methods that make logging more consistent throughout the app.

@@ -2,9 +2,9 @@ package com.msx7.widget;
 
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.MeasureSpec;
 import android.view.View.OnTouchListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 
 public abstract class AbstractHeader implements OnTouchListener {

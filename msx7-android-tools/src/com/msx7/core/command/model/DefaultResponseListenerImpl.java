@@ -8,9 +8,9 @@
  */
 package com.msx7.core.command.model;
 
-import com.msx7.core.command.IResponseListener;
-
 import android.os.Handler;
+
+import com.msx7.core.command.IResponseListener;
 
 /**
  * 
