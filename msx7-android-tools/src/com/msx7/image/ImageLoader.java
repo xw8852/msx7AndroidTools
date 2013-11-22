@@ -99,7 +99,6 @@ public class ImageLoader {
     }
 
     public void loadImage(ImageData data, ImageView imageView) {
-        Log.d("MSG", "url:"+data.mKey);
         String key = String.valueOf(data);
         imageView.setTag(key);
         Bitmap bitmap = null;
@@ -110,10 +109,8 @@ public class ImageLoader {
                 mMemoryCache.addBitmapToCache(key, bitmap);
         }
         if (bitmap != null) {
-            Log.d("MSG", " post  url:"+data.mKey);
             imageView.post(new ImageRunnable(imageView, key, bitmap));
         } else {
-            Log.d("MSG", " DownBitmapFromUrl  url:"+data.mKey);
             DownBitmapFromUrl(data, imageView);
         }
     }
