@@ -6,6 +6,7 @@ import java.util.List;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
+import android.widget.ListView;
 
 import com.google.gson.Gson;
 
@@ -80,6 +81,7 @@ public class LocationServices extends Service {
 			if (_gps.doFilter(this, data, type)) {
 				gps = _gps;
 				gps.setLocationUpdate(upadate);
+				gps.startGPS();
 				break;
 			}
 		}
@@ -109,6 +111,7 @@ public class LocationServices extends Service {
 		gps.add(new BaiduGPS());
 		gps.add(new SystemGPS());
 		List<IGPS> _gps = loadOthers();
+		
 		if (_gps != null)
 			gps.addAll(_gps);
 		return gps;
