@@ -17,7 +17,7 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.FloatMath;
 
-import com.example.listviewtemplate.R;
+import com.msx7.R;
 
 /*
  * Copyright (C) 2006 The Android Open Source Project

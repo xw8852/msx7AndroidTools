@@ -13,7 +13,12 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
-
+/**
+ * 1、在你启动{@link LocationServices}的intent中，<br/>
+ * 参考如下方法传递你定义的{@link LocationRequest}<br/>
+ * intent.putExtra(GoogleGPS.PARAM_GOOGLE_GPS, LocationRequest.create());
+ * @author Msx7
+ */
 public class GoogleGPS extends BaseGPS {
 	public static final String PARAM_GOOGLE_GPS="param_googleGps";
 
@@ -30,7 +35,7 @@ public class GoogleGPS extends BaseGPS {
 		if(GooglePlayServicesUtil.isGooglePlayServicesAvailable(ctx)!=ConnectionResult.SUCCESS)
 			return false;
 		request = data.getParcelableExtra(PARAM_GOOGLE_GPS);
-		this.ctx = ctx;
+		this.ctx = ctx;		
 		return true;
 	}
 

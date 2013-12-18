@@ -6,7 +6,7 @@ import android.view.View.OnClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.listviewtemplate.R;
+import com.msx7.R;
 
 public class PageFooter {
     protected ListView mListView;

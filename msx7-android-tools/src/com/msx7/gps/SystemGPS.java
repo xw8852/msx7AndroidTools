@@ -9,12 +9,25 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 
+/**
+ * 1、在你启动{@link LocationServices}的intent中，<br/>
+ * 传递系统定位相关参数：<br/>
+ * key - value<br/>
+ * {@link #PARAM_GPS} - {@link Criteria} <br/>
+ * {@link #PARAM_PROVIDER} - {@link LocationManager#NETWORK_PROVIDER} or
+ * {@link LocationManager#GPS_PROVIDER}<br/>
+ * {@link #PARAM_MIN_TIME} - 最小间隔时间 long类型单位ms <br/>
+ * {@link #PARAM_MIN_DISTANCE} - 最小距离 float类型，单位m <br/>
+ * <br/>
+ * 
+ * @author Msx7
+ */
 public class SystemGPS extends BaseGPS {
 	public static final String PARAM_GPS = "param_gps";
 	public static final String PARAM_PROVIDER = "param_provider";
 	public static final String PARAM_MIN_TIME = "param_min_time";
 	public static final String PARAM_MIN_DISTANCE = "param_min_distance";
-	public static final String ACTION_PROVIDER_DISABLE="com.msx7.gps.systemgps.disable_provider";
+	public static final String ACTION_PROVIDER_DISABLE = "com.msx7.gps.systemgps.disable_provider";
 	Criteria criteria;
 	Context ctx;
 	String provider;
@@ -64,7 +77,7 @@ public class SystemGPS extends BaseGPS {
 
 			@Override
 			public void onLocationChanged(Location location) {
-				upadate.updateLocation(new Msx7Location(location,3));
+				upadate.updateLocation(new Msx7Location(location, 3));
 			}
 		};
 		locationManager.requestLocationUpdates(PARAM_PROVIDER, minTime,
@@ -76,7 +89,5 @@ public class SystemGPS extends BaseGPS {
 		if (listener != null)
 			locationManager.removeUpdates(listener);
 	}
-
-	
 
 }

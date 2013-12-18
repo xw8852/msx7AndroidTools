@@ -10,6 +10,16 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.google.gson.Gson;
 
+/**
+ * 1、在你启动{@link LocationServices}的intent中，<br/>
+ * 参考如下方法传递百度定位相关参数：<br/>
+ * 实例化{@link BaiduOption},并根据注释设置对应属性，利用GOSN转成JSON格式传递<br/>
+ * 在Intent传递中对应的key:{@link #PARAM_BAIDU}<br/>
+ * <br/>
+ * 
+ * @author msx7
+ * 
+ */
 public class BaiduGPS extends BaseGPS {
 	public static final String PARAM_BAIDU = "param_baidu";
 	LocationClient client;

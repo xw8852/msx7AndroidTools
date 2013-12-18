@@ -16,7 +16,7 @@ import android.util.AttributeSet;
 import android.util.FloatMath;
 import android.widget.TextView;
 
-import com.example.listviewtemplate.R;
+import com.msx7.R;
 
 public class RegularPolygonView extends TextView {
 	private int mBorders = 3;

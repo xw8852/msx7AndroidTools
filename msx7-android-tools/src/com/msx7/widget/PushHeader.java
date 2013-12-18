@@ -17,7 +17,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.example.listviewtemplate.R;
+import com.msx7.R;
 
 /**
  * 

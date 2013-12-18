@@ -5,7 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 
-import com.example.listviewtemplate.R;
+import com.msx7.R;
 
 public class FlexHeader extends AbstractHeader {
     View view;
