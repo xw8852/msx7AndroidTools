@@ -1,6 +1,7 @@
 #################
 ## Eclipse
 #################
+[Dd]oc/
 
 *.pydevproject
 .project
