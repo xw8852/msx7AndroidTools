@@ -6,9 +6,10 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PointF;
 import android.graphics.PorterDuff.Mode;
-import android.util.FloatMath;
 import android.view.SurfaceHolder;
 import android.view.animation.Transformation;
+
+import com.msx7.util.MathFloat;
 
 public class TrackBerzierCurvesAnimation extends BaseBerzierCurvesAnim {
 	int step = 5;
@@ -118,8 +119,8 @@ public class TrackBerzierCurvesAnimation extends BaseBerzierCurvesAnim {
 		float[] len = new float[points.length - 1];
 		time = new float[points.length - 1];
 		for (int i = 0; i < len.length; i++) {
-			len[i] = FloatMath.pow(points[i].x - points[i + 1].x, 2)
-					+ FloatMath.pow(points[i].y - points[i + 1].y, 2);
+			len[i] =MathFloat.pow(points[i].x - points[i + 1].x, 2)
+					+ MathFloat.pow(points[i].y - points[i + 1].y, 2);
 			sumLen += len[i];
 		}
 		startTime[0] = 0f;
@@ -134,18 +135,18 @@ public class TrackBerzierCurvesAnimation extends BaseBerzierCurvesAnim {
 	}
 
 	float bezierNfuncX(float t, PointF[] arr) {
-		float part1 = FloatMath.pow(1.0f - t, 3.0f) * arr[0].x;
-		float part2 = 3 * t * FloatMath.pow(1 - t, 2) * arr[1].x;
-		float part3 = 3 * (1.0f - t) * FloatMath.pow(t, 2.0f) * arr[2].x;
-		float part4 = FloatMath.pow(t, 3.0f) * arr[3].x;
+		float part1 = MathFloat.pow(1.0f - t, 3) * arr[0].x;
+		float part2 = 3 * t * MathFloat.pow(1 - t, 2) * arr[1].x;
+		float part3 = 3 * (1.0f - t) * MathFloat.pow(t, 2) * arr[2].x;
+		float part4 = MathFloat.pow(t, 3) * arr[3].x;
 		return part1 + part2 + part3 + part4;
 	}
 
 	float bezierNfuncY(float t, PointF[] arr) {
-		float part1 = FloatMath.pow(1.0f - t, 3.0f) * arr[0].y;
-		float part2 = 3 * t * FloatMath.pow(1 - t, 2) * arr[1].y;
-		float part3 = 3 * (1.0f - t) * FloatMath.pow(t, 2.0f) * arr[2].y;
-		float part4 = FloatMath.pow(t, 3.0f) * arr[3].y;
+		float part1 = MathFloat.pow(1.0f - t, 3) * arr[0].y;
+		float part2 = 3 * t * MathFloat.pow(1 - t, 2) * arr[1].y;
+		float part3 = 3 * (1.0f - t) * MathFloat.pow(t, 2) * arr[2].y;
+		float part4 = MathFloat.pow(t, 3) * arr[3].y;
 		return part1 + part2 + part3 + part4;
 	}
 }
