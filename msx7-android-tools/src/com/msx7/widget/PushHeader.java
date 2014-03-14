@@ -18,6 +18,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.msx7.R;
+import com.msx7.core.command.IResponseListener;
+import com.msx7.core.command.model.Response;
 
 /**
  * 
@@ -175,5 +177,29 @@ public final class PushHeader extends AbstractHeader implements OnTouchListener 
     @Override
     protected int getVisiableHeight() {
         return headContentHeight;
+    }
+    /**
+     * 如果向网络请求数据时，采用此方法来包装{@link IResponseListener}
+     * ,则listview内部自动做响应的界面处理，否则需要自己调用（请自己查看该实现）
+     * 
+     * @param listener
+     * @return
+     */
+    public IResponseListener getResponseListener(final IResponseListener listener) {
+        return new IResponseListener() {        	
+            @Override
+            public void onSuccess(Response response) {
+            	if (listener != null)
+                    listener.onSuccess(response);
+              onRefreshComplete();
+            }
+
+            @Override
+            public void onError(Response response) {
+            	if (listener != null)
+                    listener.onError(response);
+            	onRefreshComplete();
+            }
+        };
     }
 }

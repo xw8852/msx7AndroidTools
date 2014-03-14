@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import android.text.TextUtils;
+
 import com.msx7.core.command.AbstractHttpCommand;
 import com.msx7.core.command.ICommand;
 import com.msx7.core.command.IResponseListener;
@@ -106,7 +108,7 @@ public class Manager {
 			ICommand cmd = cmd_class.newInstance();
 			cmd.setRequest(request);
 			cmd.setResponseListener(listener);
-			if (cmd instanceof AbstractHttpCommand) {
+			if (cmd instanceof AbstractHttpCommand &&!TextUtils.isEmpty(request.url)) {
 				((AbstractHttpCommand) cmd).setURI(URI.create(request.url));
 			}
 			mPools.execute(new ThreadCall(cmd));
